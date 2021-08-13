@@ -657,7 +657,9 @@ export class Tokenizer {
     }
 
     private consumeStringSlice(count: number): string {
-        const SLICE_STACK_SIZE = 60000;
+        // Below variable was causing a stack overflow in M1 Chrome
+        // Value reduced to prevent error
+        const SLICE_STACK_SIZE = 30000;
         let value = '';
         while (count > 0) {
             const amount = Math.min(SLICE_STACK_SIZE, count);
